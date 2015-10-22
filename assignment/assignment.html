@@ -3,29 +3,89 @@
   <meta charset="UTF-8">
 	<script language="javascript" type="text/javascript" src="../helpers/p5.js"></script>
 	<script language="javascript" type="text/javascript" src="../helpers/p5.dom.js"></script>
-  <style> body {padding: 0; margin: 0;} </style>
+  <style> 
+  body {padding: 0; margin: 0;} 
+
+  button { 
+  	background-color:#dc66f6;
+  	font-size: 15;
+    font-family: impact;
+
+ }
+
+
+  </style>
+
   <script>
 
   //declare your images as a global variable
+
+  var Yellow, heart;
+  var button;
+  var button2
  
 
 	function preload(){
 
 		// Load the image
+		Yellow = loadImage("../assets/Yellow.jpg");
+		heart = loadImage("../assets/heart.png");
+		Green = loadImage("../assets/Green.jpg");
 	}
 
 
 	function setup() {
 
 	  //set up your canvas
+	  createCanvas(windowWidth, windowHeight);
+	  imageMode(CENTER);
+
+	  button = createButton("?");
+	  button.position(640, 72.5);
+	  button.style("width", "30px");
+	  button.style("height", "30px");
+	  button.mousePressed(pressed);
+	  Yellow.filter(POSTERIZE, 10);
+	  image(Yellow, 640, 352.5);
+
+
 
 	}
+	
 
 	function draw() {
 
 		//draw
-
+		if(mouseIsPressed){
+			image(heart, mouseX, mouseY);
+		}else{
+			blend(heart, 0, 0, heart.width, heart.height, mouseX-30, mouseY-30, heart.width, heart.height, MULTIPLY);
 	}
+		
+	}
+
+	function pressed() {
+
+		button.hide();
+
+		image(Green, 640, 352.5);
+		
+		button2 = createButton("-");
+	    button2.position(640, 72.5);
+	    button2.style("width", "30px");
+	    button2.style("height", "30px");
+	    button2.mousePressed(back);
+}
+	
+	function back() {
+
+		button2.hide();
+		button.show();
+
+		image(Yellow, 640, 352.5);
+	}
+
+	
 
 	</script>
 </head>
